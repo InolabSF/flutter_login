@@ -1,6 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'providers/login_messages.dart';
 
 Size getWidgetSize(GlobalKey key) {
   final RenderBox renderBox = key.currentContext?.findRenderObject();
@@ -24,10 +26,11 @@ Flushbar showSuccessToast(BuildContext context, String message) {
   )..show(context);
 }
 
-Flushbar showErrorToast(BuildContext context, String message) {
+Flushbar showErrorToast(BuildContext context, String errorMessage) {
+  final messages = Provider.of<LoginMessages>(context, listen: false);
   return Flushbar(
-    title: 'Error',
-    message: message,
+    title: messages.errorTitle,
+    message: errorMessage,
     icon: Icon(
       Icons.error,
       size: 28.0,
